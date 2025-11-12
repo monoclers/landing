@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monoclers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .top-right-image {
+            position: absolute;
+            top: 10px;
+            right: 100px;
+            max-width: 100px;
+            width: 15vw;
+            height: auto;
+            z-index: 10;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .center-image {
+            margin: 40px auto;
+            width: 400px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            font-weight: normal;
+            margin-bottom: 40px;
+            letter-spacing: 0.05em;
+        }
+        
+        .separator {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        
+        .content {
+            line-height: 1.8;
+            font-size: 1em;
+            margin: 20px 0;
+        }
+        
+        .address {
+            margin: 20px 0;
+        }
+        
+        .email {
+            margin: 20px 0;
+            color: #fff;
+        }
+        
+        .copyright {
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #999;
+        }
+        
+        /* 반응형 디자인 */
+        @media screen and (max-width: 768px) {
+            .top-right-image {
+                max-width: 80px;
+                width: 20vw;
+                top: 10px;
+                right: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+            
+            .separator {
+                margin: 15px 0;
+                font-size: 1em;
+            }
+            
+            .center-image {
+                margin: 30px auto;
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .content {
+                font-size: 0.9em;
+            }
+            
+            .address, .email {
+                font-size: 0.9em;
+            }
+            
+            .copyright {
+                margin-top: 40px;
+                font-size: 0.8em;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .top-right-image {
+                max-width: 80px;
+                width: 25vw;
+                top: 10px;
+                right: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+            
+            .separator {
+                margin: 10px 0;
+            }
+            
+            .center-image {
+                margin: 20px auto;
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .content {
+                font-size: 0.85em;
+            }
+            
+            .address, .phone {
+                font-size: 0.85em;
+            }
+            
+            .copyright {
+                margin-top: 30px;
+                font-size: 0.75em;
+            }
+        }
+
+        a:link {
+            color:#fff;
+        }
+
+        a:visited {
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <img src="./monoclers_top_logo.png" alt="logo" class="top-right-image">
+    
+    <div class="container">
+        <img src="./monoclers_logo.png" alt="logo" class="center-image">
+        
+        
+        <div class="address">
+            SEOUL, REPUBLIC OF KOREA
+        </div>
+        
+        <div class="email">
+            <a href="mailto:hello@monoclers.com">HELLO@MONOCLERS.COM</a>
+        </div>
+        
+        <div class="copyright">
+            COPYRIGHTⓒ MONOCLERS ALL RIGHT RESERVED.
+        </div>
+    </div>
+</body>
+</html>
