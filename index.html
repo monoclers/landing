@@ -30,7 +30,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ✅ 기존 이미지 위치/느낌 그대로 텍스트로 대체 */
+    /* top-right MONOCLERS text */
     .top-right-logo {
       position: absolute;
       top: 30px;
@@ -115,7 +115,7 @@
       font-weight: 300;
     }
 
-    /* 반응형 디자인 */
+    /* responsive */
     @media screen and (max-width: 768px) {
       .top-right-logo {
         top: 10px;
@@ -123,45 +123,30 @@
         font-size: 12px;
         letter-spacing: 0.22em;
       }
-
       .center-image {
         margin: 30px auto;
         width: 100%;
         max-width: 400px;
       }
-
-      .address,
-      .email { font-size: 0.9em; }
-
-      .copyright {
-        margin-top: 40px;
-        font-size: 0.8em;
-      }
+      .address, .email { font-size: 0.9em; }
+      .copyright { margin-top: 40px; font-size: 0.8em; }
     }
 
     @media screen and (max-width: 480px) {
       body { padding: 15px; }
-
       .top-right-logo {
         top: 10px;
         right: 10px;
         font-size: 12px;
         letter-spacing: 0.2em;
       }
-
       .center-image {
         margin: 20px auto;
         width: 100%;
         max-width: 500px;
       }
-
-      .address,
-      .email { font-size: 0.85em; }
-
-      .copyright {
-        margin-top: 30px;
-        font-size: 0.75em;
-      }
+      .address, .email { font-size: 0.85em; }
+      .copyright { margin-top: 30px; font-size: 0.75em; }
     }
 
     a:link { color: #fff; }
@@ -228,7 +213,6 @@
 </head>
 
 <body>
-  <!-- ✅ 이미지 대신 텍스트 -->
   <div class="top-right-logo" aria-label="Monoclers">MONOCLERS</div>
 
   <div class="container">
@@ -271,13 +255,14 @@
       face.setAttribute("stroke-dashoffset", "40");
       g.appendChild(face);
 
+      // ✅ eyes: SAME SIZE (both circles r=16), SAME HEIGHT (eyeY)
       const eyeY = 118;
+      const eyeR = 16;
 
-      const leftEye = document.createElementNS(ns, "ellipse");
+      const leftEye = document.createElementNS(ns, "circle");
       leftEye.setAttribute("cx", "84");
       leftEye.setAttribute("cy", String(eyeY));
-      leftEye.setAttribute("rx", "20");
-      leftEye.setAttribute("ry", "16");
+      leftEye.setAttribute("r", String(eyeR));
       leftEye.setAttribute("class", "mc-fill mc-blink");
       g.appendChild(leftEye);
 
@@ -301,7 +286,7 @@
       const rightEye = document.createElementNS(ns, "circle");
       rightEye.setAttribute("cx", "176");
       rightEye.setAttribute("cy", String(eyeY));
-      rightEye.setAttribute("r", "16");
+      rightEye.setAttribute("r", String(eyeR));
       rightEye.setAttribute("class", "mc-fill");
       mg.appendChild(rightEye);
 
@@ -330,7 +315,7 @@
           const len = el.getTotalLength();
           el.style.setProperty("--len", Math.ceil(len));
           el.style.animationDelay = (0.08 * i) + "s";
-        } catch (e) { }
+        } catch (e) {}
       });
     })();
   </script>
