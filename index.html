@@ -12,11 +12,7 @@
     rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -34,22 +30,24 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .top-right-image {
+    /* ✅ 기존 이미지 위치/느낌 그대로 텍스트로 대체 */
+    .top-right-logo {
       position: absolute;
       top: 30px;
       right: 40px;
-      max-width: 120px;
-      width: 18vw;
-      height: auto;
       z-index: 10;
+
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+
       opacity: 0.8;
       transition: opacity 0.3s ease;
       mix-blend-mode: screen;
+      user-select: none;
     }
-
-    .top-right-image:hover {
-      opacity: 1;
-    }
+    .top-right-logo:hover { opacity: 1; }
 
     .container {
       text-align: center;
@@ -64,15 +62,8 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .center-image {
@@ -89,24 +80,6 @@
     .center-image:hover {
       transform: scale(1.02);
       filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
-    }
-
-    h1 {
-      font-size: 2.5em;
-      font-weight: normal;
-      margin-bottom: 40px;
-      letter-spacing: 0.05em;
-    }
-
-    .separator {
-      margin: 20px 0;
-      font-size: 1.2em;
-    }
-
-    .content {
-      line-height: 1.8;
-      font-size: 1em;
-      margin: 20px 0;
     }
 
     .address {
@@ -144,21 +117,11 @@
 
     /* 반응형 디자인 */
     @media screen and (max-width: 768px) {
-      .top-right-image {
-        max-width: 80px;
-        width: 20vw;
+      .top-right-logo {
         top: 10px;
         right: 10px;
-      }
-
-      h1 {
-        font-size: 1.8em;
-        margin-bottom: 30px;
-      }
-
-      .separator {
-        margin: 15px 0;
-        font-size: 1em;
+        font-size: 12px;
+        letter-spacing: 0.22em;
       }
 
       .center-image {
@@ -167,14 +130,8 @@
         max-width: 400px;
       }
 
-      .content {
-        font-size: 0.9em;
-      }
-
       .address,
-      .email {
-        font-size: 0.9em;
-      }
+      .email { font-size: 0.9em; }
 
       .copyright {
         margin-top: 40px;
@@ -183,24 +140,13 @@
     }
 
     @media screen and (max-width: 480px) {
-      body {
-        padding: 15px;
-      }
+      body { padding: 15px; }
 
-      .top-right-image {
-        max-width: 80px;
-        width: 25vw;
+      .top-right-logo {
         top: 10px;
         right: 10px;
-      }
-
-      h1 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-      }
-
-      .separator {
-        margin: 10px 0;
+        font-size: 12px;
+        letter-spacing: 0.2em;
       }
 
       .center-image {
@@ -209,14 +155,8 @@
         max-width: 500px;
       }
 
-      .content {
-        font-size: 0.85em;
-      }
-
       .address,
-      .phone {
-        font-size: 0.85em;
-      }
+      .email { font-size: 0.85em; }
 
       .copyright {
         margin-top: 30px;
@@ -224,25 +164,12 @@
       }
     }
 
-    a:link {
-      color: #fff;
-    }
-
-    a:visited {
-      color: #fff;
-    }
+    a:link { color: #fff; }
+    a:visited { color: #fff; }
 
     /* === Animated center logo (SVG) — only affects center logo === */
-    #centerLogo {
-      display: grid;
-      place-items: center;
-    }
-
-    #centerLogo svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    #centerLogo { display: grid; place-items: center; }
+    #centerLogo svg { width: 100%; height: auto; display: block; }
 
     #centerLogo .mc-stroke {
       fill: none;
@@ -251,106 +178,60 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-
-    #centerLogo .mc-fill {
-      fill: #ffffff;
-    }
+    #centerLogo .mc-fill { fill: #ffffff; }
 
     #centerLogo .mc-draw {
       stroke-dasharray: var(--len, 1);
       stroke-dashoffset: var(--len, 1);
       animation: mcDraw 1.15s ease forwards;
     }
-
-    @keyframes mcDraw {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
+    @keyframes mcDraw { to { stroke-dashoffset: 0; } }
 
     #centerLogo .mc-float {
       transform-origin: 50% 50%;
       animation: mcFloat 5.2s ease-in-out infinite;
     }
-
     @keyframes mcFloat {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-6px);
-      }
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
     }
 
     #centerLogo .mc-monocle {
-      /* ✅ 눈높이 맞춤: 오른쪽 눈 y를 118로 맞추므로 기준도 동일하게 */
       transform-origin: 176px 118px;
       animation: mcWobble 3.6s ease-in-out infinite;
     }
-
     @keyframes mcWobble {
-
-      0%,
-      100% {
-        transform: rotate(0deg);
-      }
-
-      40% {
-        transform: rotate(-2.5deg);
-      }
-
-      70% {
-        transform: rotate(2deg);
-      }
+      0%,100% { transform: rotate(0deg); }
+      40% { transform: rotate(-2.5deg); }
+      70% { transform: rotate(2deg); }
     }
 
     #centerLogo .mc-blink {
       transform-origin: center;
       animation: mcBlink 5.5s infinite;
     }
-
     @keyframes mcBlink {
-
-      0%,
-      92%,
-      100% {
-        transform: scaleY(1);
-      }
-
-      94% {
-        transform: scaleY(0.08);
-      }
-
-      96% {
-        transform: scaleY(1);
-      }
+      0%,92%,100% { transform: scaleY(1); }
+      94% { transform: scaleY(0.08); }
+      96% { transform: scaleY(1); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-
       #centerLogo .mc-draw,
       #centerLogo .mc-float,
       #centerLogo .mc-monocle,
-      #centerLogo .mc-blink {
-        animation: none !important;
-      }
+      #centerLogo .mc-blink { animation: none !important; }
 
-      #centerLogo .mc-draw {
-        stroke-dasharray: none;
-        stroke-dashoffset: 0;
-      }
+      #centerLogo .mc-draw { stroke-dasharray: none; stroke-dashoffset: 0; }
     }
   </style>
 </head>
 
 <body>
+  <!-- ✅ 이미지 대신 텍스트 -->
   <div class="top-right-logo" aria-label="Monoclers">MONOCLERS</div>
 
   <div class="container">
-    <!-- ✅ 가운데 로고만 SVG 애니메이션으로 교체 (나머지는 변경 없음) -->
     <div id="centerLogo" class="center-image" aria-label="logo"></div>
 
     <div class="address">
@@ -366,7 +247,6 @@
     </div>
   </div>
 
-  <!-- ✅ 가운데 로고만 주입하는 JS -->
   <script>
     (function mountCenterAnimatedLogo() {
       const host = document.getElementById("centerLogo");
@@ -391,7 +271,6 @@
       face.setAttribute("stroke-dashoffset", "40");
       g.appendChild(face);
 
-      // ✅ Left eye (reference height)
       const eyeY = 118;
 
       const leftEye = document.createElementNS(ns, "ellipse");
@@ -411,10 +290,9 @@
       const mg = document.createElementNS(ns, "g");
       mg.setAttribute("class", "mc-monocle");
 
-      // ✅ Right eye / monocle aligned to the same eyeY
       const ring = document.createElementNS(ns, "circle");
       ring.setAttribute("cx", "176");
-      ring.setAttribute("cy", String(eyeY)); // was 126/132 -> now 118
+      ring.setAttribute("cy", String(eyeY));
       ring.setAttribute("r", "46");
       ring.setAttribute("class", "mc-stroke mc-draw");
       ring.setAttribute("stroke-width", "14");
@@ -422,21 +300,20 @@
 
       const rightEye = document.createElementNS(ns, "circle");
       rightEye.setAttribute("cx", "176");
-      rightEye.setAttribute("cy", String(eyeY)); // match left eye height
+      rightEye.setAttribute("cy", String(eyeY));
       rightEye.setAttribute("r", "16");
       rightEye.setAttribute("class", "mc-fill");
       mg.appendChild(rightEye);
 
-      // Handle and dot moved up by the same delta (132 -> 118 => -14)
       const handle = document.createElementNS(ns, "path");
-      handle.setAttribute("d", "M 206 150 L 228 172"); // was 164..186 -> -14
+      handle.setAttribute("d", "M 206 150 L 228 172");
       handle.setAttribute("class", "mc-stroke mc-draw");
       handle.setAttribute("stroke-width", "14");
       mg.appendChild(handle);
 
       const dot = document.createElementNS(ns, "circle");
       dot.setAttribute("cx", "236");
-      dot.setAttribute("cy", "180"); // was 194 -> -14
+      dot.setAttribute("cy", "180");
       dot.setAttribute("r", "10");
       dot.setAttribute("class", "mc-fill");
       mg.appendChild(dot);
