@@ -231,6 +231,83 @@
         a:visited {
             color: #fff;
         }
+
+        /* === Animated center logo (SVG) — only affects #centerLogo === */
+#centerLogo{
+  display: grid;
+  place-items: center;
+}
+
+/* SVG size follows existing .center-image width */
+#centerLogo svg{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* White strokes/fills */
+#centerLogo .mc-stroke{
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#centerLogo .mc-fill{ fill:#ffffff; }
+
+/* Draw-in */
+#centerLogo .mc-draw{
+  stroke-dasharray: var(--len, 1);
+  stroke-dashoffset: var(--len, 1);
+  animation: mcDraw 1.15s ease forwards;
+}
+@keyframes mcDraw { to { stroke-dashoffset: 0; } }
+
+/* Subtle float */
+#centerLogo .mc-float{
+  transform-origin: 50% 50%;
+  animation: mcFloat 5.2s ease-in-out infinite;
+}
+@keyframes mcFloat{
+  0%,100%{ transform: translateY(0px); }
+  50%{ transform: translateY(-6px); }
+}
+
+/* Monocle wobble */
+#centerLogo .mc-monocle{
+  transform-origin: 176px 132px;
+  animation: mcWobble 3.6s ease-in-out infinite;
+}
+@keyframes mcWobble{
+  0%,100%{ transform: rotate(0deg); }
+  40%{ transform: rotate(-2.5deg); }
+  70%{ transform: rotate(2deg); }
+}
+
+/* Blink */
+#centerLogo .mc-blink{
+  transform-origin: center;
+  animation: mcBlink 5.5s infinite;
+}
+@keyframes mcBlink{
+  0%,92%,100%{ transform: scaleY(1); }
+  94%{ transform: scaleY(0.08); }
+  96%{ transform: scaleY(1); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
+  #centerLogo .mc-draw,
+  #centerLogo .mc-float,
+  #centerLogo .mc-monocle,
+  #centerLogo .mc-blink{
+    animation: none !important;
+  }
+  #centerLogo .mc-draw{
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
     </style>
 </head>
 
@@ -238,7 +315,10 @@
     <img src="./monoclers_top_logo.png" alt="logo" class="top-right-image">
 
     <div class="container">
+        <div id="centerLogo" class="center-image" aria-label="logo"></div>
+        <!--
         <img src="./monoclers_logo.png" alt="logo" class="center-image">
+        -->
 
 
         <div class="address">
@@ -253,6 +333,97 @@
             COPYRIGHT ⓒ MONOCLERS ALL RIGHTS RESERVED.
         </div>
     </div>
+    <script>
+  // Build animated monocle-face logo as SVG and mount into #centerLogo only
+  (function mountCenterAnimatedLogo(){
+    const host = document.getElementById("centerLogo");
+    if (!host) return;
+
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", "0 0 256 256");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "monoclers logo");
+    svg.setAttribute("class", "mc-float"); // subtle float (logo only)
+
+    const g = document.createElementNS(ns, "g");
+
+    // Face ring (slightly open look)
+    const face = document.createElementNS(ns, "circle");
+    face.setAttribute("cx", "128");
+    face.setAttribute("cy", "128");
+    face.setAttribute("r", "108");
+    face.setAttribute("class", "mc-stroke mc-draw");
+    face.setAttribute("stroke-width", "14");
+    face.setAttribute("stroke-dasharray", "640 80");
+    face.setAttribute("stroke-dashoffset", "40");
+    g.appendChild(face);
+
+    // Left eye (blink)
+    const leftEye = document.createElementNS(ns, "circle");
+    leftEye.setAttribute("cx", "84");
+    leftEye.setAttribute("cy", "118");
+    leftEye.setAttribute("r", "16");
+    leftEye.setAttribute("class", "mc-fill mc-blink");
+    g.appendChild(leftEye);
+
+    // Smile
+    const smile = document.createElementNS(ns, "path");
+    smile.setAttribute("d", "M 102 170 Q 128 194 154 170");
+    smile.setAttribute("class", "mc-stroke mc-draw");
+    smile.setAttribute("stroke-width", "14");
+    g.appendChild(smile);
+
+    // Monocle group (wobble)
+    const mg = document.createElementNS(ns, "g");
+    mg.setAttribute("class", "mc-monocle");
+
+    const ring = document.createElementNS(ns, "circle");
+    ring.setAttribute("cx", "176");
+    ring.setAttribute("cy", "132");
+    ring.setAttribute("r", "46");
+    ring.setAttribute("class", "mc-stroke mc-draw");
+    ring.setAttribute("stroke-width", "14");
+    mg.appendChild(ring);
+
+    const rightEye = document.createElementNS(ns, "circle");
+    rightEye.setAttribute("cx", "176");
+    rightEye.setAttribute("cy", "132");
+    rightEye.setAttribute("r", "16");
+    rightEye.setAttribute("class", "mc-fill");
+    mg.appendChild(rightEye);
+
+    const handle = document.createElementNS(ns, "path");
+    handle.setAttribute("d", "M 206 164 L 228 186");
+    handle.setAttribute("class", "mc-stroke mc-draw");
+    handle.setAttribute("stroke-width", "14");
+    mg.appendChild(handle);
+
+    const dot = document.createElementNS(ns, "circle");
+    dot.setAttribute("cx", "236");
+    dot.setAttribute("cy", "194");
+    dot.setAttribute("r", "10");
+    dot.setAttribute("class", "mc-fill");
+    mg.appendChild(dot);
+
+    g.appendChild(mg);
+    svg.appendChild(g);
+
+    // Mount (replace only the center logo content)
+    host.innerHTML = "";
+    host.appendChild(svg);
+
+    // Compute lengths for draw animation (stagger)
+    const drawEls = svg.querySelectorAll(".mc-draw");
+    drawEls.forEach((el, i) => {
+      try {
+        const len = el.getTotalLength();
+        el.style.setProperty("--len", Math.ceil(len));
+        el.style.animationDelay = (0.08 * i) + "s";
+      } catch(e) {}
+    });
+  })();
+</script>
 </body>
 
 </html>
