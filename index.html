@@ -18,42 +18,106 @@
       box-sizing: border-box;
     }
 
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+      background-color: #090909;
+      background-image:
+        radial-gradient(circle at center, rgba(0, 0, 0, 0.02) 20%, rgba(0, 0, 0, 0.42) 100%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 40%, rgba(0, 0, 0, 0.5) 100%),
+        url("./wallpaper-clean.webp");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
       color: #ffffff;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
+      height: 100dvh;
       padding: 20px;
       position: relative;
-      overflow-x: hidden;
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* top-right MONOCLERS text */
-    .top-right-logo {
+    .brand-index {
       position: absolute;
       top: 30px;
       right: 40px;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      user-select: none;
+    }
 
+    .brand-index__parent {
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-
       opacity: 0.8;
       transition: opacity 0.3s ease;
       mix-blend-mode: screen;
-      user-select: none;
     }
 
-    .top-right-logo:hover {
+    .brand-index__parent:hover {
       opacity: 1;
+    }
+
+    .brand-index__children {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 13px;
+      padding-top: 18px;
+      padding-right: 1px;
+    }
+
+    .brand-index__children::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0.55em;
+      right: 1px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .brand-index__children a {
+      position: relative;
+      padding-right: 18px;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-decoration: none;
+      opacity: 0.48;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .brand-index__children a::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 10px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .brand-index__children a:hover {
+      opacity: 1;
+      transform: translateX(-2px);
     }
 
     .container {
@@ -65,6 +129,8 @@
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      padding-bottom: clamp(24px, 7vh, 72px);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55);
       animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
 
@@ -81,27 +147,21 @@
     }
 
     .center-image {
-      margin: 20px auto;
-      width: 400px;
-      max-width: 100%;
-      height: auto;
-      display: block;
+      position: fixed;
+      top: 43.5%;
+      left: 50%;
+      width: clamp(54px, 6vw, 76px);
+      aspect-ratio: 1;
+      z-index: 2;
+      transform: translate(-50%, -50%);
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
       mix-blend-mode: screen;
-      filter: contrast(500%) brightness(0.7);
+      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.18));
     }
 
     .center-image:hover {
-      transform: scale(1.02);
-      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
-    }
-
-    .address {
-      margin-top: 20px;
-      font-size: 0.9em;
-      letter-spacing: 0.2em;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.7);
+      transform: translate(-50%, -50%) scale(1.08);
+      filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.32));
     }
 
     .email {
@@ -121,30 +181,6 @@
       color: #ffffff;
     }
 
-    .studios-container {
-      margin-top: 25px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      width: 100%;
-    }
-
-    .studios-container a {
-      font-size: 0.85em;
-      letter-spacing: 0.3em;
-      font-weight: 400;
-      text-decoration: none;
-      opacity: 0.5;
-      transition: opacity 0.3s ease, letter-spacing 0.3s ease, transform 0.3s ease;
-    }
-
-    .studios-container a:hover {
-      opacity: 1;
-      letter-spacing: 0.4em;
-      transform: translateY(-1px);
-    }
-
     .copyright {
       margin-top: 60px;
       font-size: 0.75em;
@@ -155,20 +191,29 @@
 
     /* responsive */
     @media screen and (max-width: 768px) {
-      .top-right-logo {
+      body {
+        background-attachment: scroll;
+        background-position: center center;
+      }
+
+      .brand-index {
         top: 10px;
         right: 10px;
+      }
+
+      .brand-index__parent {
         font-size: 12px;
         letter-spacing: 0.22em;
       }
 
-      .center-image {
-        margin: 30px auto;
-        width: 100%;
-        max-width: 400px;
+      .brand-index__children a {
+        font-size: 10px;
       }
 
-      .address,
+      .center-image {
+        width: clamp(50px, 14vw, 68px);
+      }
+
       .email {
         font-size: 0.9em;
       }
@@ -184,20 +229,20 @@
         padding: 15px;
       }
 
-      .top-right-logo {
+      .brand-index {
         top: 10px;
         right: 10px;
+      }
+
+      .brand-index__parent {
         font-size: 12px;
         letter-spacing: 0.2em;
       }
 
       .center-image {
-        margin: 20px auto;
-        width: 100%;
-        max-width: 500px;
+        width: clamp(48px, 16vw, 62px);
       }
 
-      .address,
       .email {
         font-size: 0.85em;
       }
@@ -330,21 +375,20 @@
 </head>
 
 <body>
-  <div class="top-right-logo" aria-label="Monoclers">MONOCLERS</div>
+  <nav class="brand-index" aria-label="Monoclers studios">
+    <div class="brand-index__parent">MONOCLERS</div>
+    <div class="brand-index__children">
+      <a href="https://runchr.com" target="_blank" rel="noopener noreferrer">RUNCHR</a>
+      <a href="https://oohaha.com" target="_blank" rel="noopener noreferrer">OOHAHA</a>
+      <a href="https://artwoc.com" target="_blank" rel="noopener noreferrer">ARTWOC</a>
+    </div>
+  </nav>
+
+  <div id="centerLogo" class="center-image" aria-label="logo"></div>
 
   <div class="container">
-    <div id="centerLogo" class="center-image" aria-label="logo"></div>
-
-    <div class="address">
-      SEOUL, REPUBLIC OF KOREA
-    </div>
-
     <div class="email">
       <a href="mailto:hello@monoclers.com">HELLO@MONOCLERS.COM</a>
-    </div>
-
-    <div class="studios-container">
-      <a href="https://runchr.com" target="_blank">RUNCHR</a>
     </div>
 
     <div class="copyright">
